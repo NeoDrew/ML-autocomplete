@@ -4,7 +4,7 @@ Machine Learning autocompletion
 
 ### Theory
 
-Our goal is to produce smart autocompletions for a word given its prefix characters. 
+Our goal is to produce smart autocompletions for a word given its prefix characters.
 
 This can be easily done for prefixes that are close to the length of the word. E.g. $autocomplet$ is clearly $autocomplete$. However, for less characters, the task becomes harder and harder. E.g. $we...$ as $weltanschauung$ (who would've known?)
 
@@ -14,25 +14,30 @@ $$
 P(w) = P(l_{i:n}|l_{0:i-1}))
 $$
 
-With this in mind, we can work out the probabilities of the next $x$ characters given a corpus of words where some word contains our prefix so far. E.g. we have the prefix $hel$ and wish to complete it. Given our corpus contains 
+With this in mind, we can work out the probabilities of the next $x$ characters given a corpus of words where some word contains our prefix so far. E.g. we have the prefix $her$ and wish to complete it. Given our corpus contains
 
 ```python
 {
-	"Hello" : 564, 
-	"Hell" : 545,
-	"Help" : 231,
-	"Helicopter" : 6,
+	"here" : 564, 
+	"hero" : 545,
+	"heros" : 231,
+	"hermit" : 6,
 	...
 }
 ```
 
-we can determine the best $n$ words for our prefix - the best being $Hello$.
+we can determine the best $n$ words for our prefix - the best being $here$. However, you might be suprised to find that the actual best words the model predicts...
+
+```bash
+Enter prefix: he
+['hermione', 'her', 'here']
+```
 
 ### Tests
 
 Testing for this is somewhat straight forward. However, it is necessary to create a heuristic for testing. That being, the number $n$ of letters we use as a prefix to guess the rest of the word. For simplicity's sake, I've choosen this as a floor division by 2 (`//2`). I believe this works fine for this test. In the future, it would be nice to test this on all prefix lengths (perhaps except for 0-2 characters as this would simpily not provide enough information.)
 
-The first iteration of tests utilised 20% of the 'harryPotter.txt' corpus and achieved a $77.4$% accuracy. 
+The first iteration of tests utilised 20% of the 'harryPotter.txt' corpus and achieved a $77.4$% accuracy.
 
 ### Limitations
 

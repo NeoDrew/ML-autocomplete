@@ -1,4 +1,5 @@
 import tokenizer
+import re
 class app:
     def __init__(self):
         self.wordDictionary = {}
@@ -6,6 +7,7 @@ class app:
         self.wordDictionary = Tokenizer.createDict()
 
     def getPredictions(self, prefix:str):
+        prefix= re.sub(r"[^\w\s]", "", (prefix.lower()).strip())
         words = self.wordDictionary.copy()
         matches = {}
         
@@ -28,10 +30,10 @@ class app:
                 return topValues
         return topValues
 
-
 if __name__ == "__main__":
     App = app()
-
-    a = input("enter prefix")
-    print(App.getPredictions(a))
+    print("Press ctrl + c to exit.")
+    while True:
+        word = input("Enter prefix: ")
+        print(App.getPredictions(word))
 

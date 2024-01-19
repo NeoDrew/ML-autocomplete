@@ -1,5 +1,6 @@
 import app
 import tokenizer
+import time
 
 class tests:
     def halfWordTest(self):
@@ -7,11 +8,14 @@ class tests:
         tokenInst = tokenizer.tokenizer()
 
         testWords = tokenInst.getWords(path="harryPotterTest.txt")
+        testLen = len(testWords)
+        updateNum = int(testLen / 200)
 
         correct = 0
         incorrect = 0
 
-        i = 1
+        i = 0
+        start = time.time()
         for word in testWords:
             if len(word) == 1:
                 continue
@@ -35,15 +39,17 @@ class tests:
 
             # print("✓ : ✖")
             # print(str(correct) + " : " + str(incorrect))
-            if ((i % 400) == 0):
-                print(f"{str((i/9800) * 100)[0:5]}% complete")
+            if ((i % updateNum) == 0):
+                print(f"-----------------{str((i/testLen) * 100)[0:5]}% complete-----------------")
                 print(f"Correct: {correct}\n Incorrect: {incorrect}")
                 print(f"Ratio {str(correct/incorrect)}")
             i += 1
-        
+            
+        end = time.time()
         print("100% complete")
         print(f"Correct: {correct}\n Incorrect: {incorrect}")
         print(f"Ratio {str(correct/incorrect)}")
+        print(f"In {end - start} seconds.")
 
 if __name__ == "__main__":
     test = tests()
