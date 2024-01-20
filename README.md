@@ -15,7 +15,7 @@ This can be easily done for prefixes that are close to the length of the word. E
 The probability of a given word being the word the user is trying to spell is given as the probability of the next $i$ to $n$ letters given the previous $0$ to $i-1$ letters.
 
 $$
-P(w) = P(l_{i:n}|l_{0:i-1}))
+P(w) = P(l_{i:n}|l_{0:i-1})
 $$
 
 With this in mind, we can work out the probabilities of the next $x$ characters given a corpus of words where some word contains our prefix so far. E.g. we have the prefix $her$ and wish to complete it. Given our corpus contains
