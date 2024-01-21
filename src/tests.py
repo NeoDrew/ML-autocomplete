@@ -1,16 +1,15 @@
-import app
+import appC
 import tokenizer
 import time
 
 class tests:
     def halfWordTest(self):
-        appInst = app.app()
+        appInst = appC.autoComplete()
         tokenInst = tokenizer.tokenizer()
 
         testWords = tokenInst.getWords(path="harryPotterTest.txt")
         testLen = len(testWords)
         updateNum = int(testLen / 200)
-
         correct = 0
         incorrect = 0
 

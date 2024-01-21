@@ -1,6 +1,7 @@
 import tokenizer
 import re
-class app:
+NUMBER_PREDICTED = 3
+class autoComplete:
     def __init__(self):
         self.wordDictionary = {}
         Tokenizer = tokenizer.tokenizer()
@@ -23,7 +24,7 @@ class app:
 
         topValues = []
         
-        for i in range(3):
+        for i in range(NUMBER_PREDICTED):
             try:
                 topValues.append(sortedMatches[i][0])
             except:
@@ -31,9 +32,8 @@ class app:
         return topValues
 
 if __name__ == "__main__":
-    App = app()
+    autoC = autoComplete()
     print("Press ctrl + c to exit.")
     while True:
         word = input("Enter prefix: ")
-        print(App.getPredictions(word))
-
+        print(autoC.getPredictions(word))
