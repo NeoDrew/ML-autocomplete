@@ -7,7 +7,7 @@ Machine Learning autocompletion
 
 
 <p align="left" style="border: 5px solid #555">
-  <img src="example.png" width="200" alt="Set Preview with Default Settings">
+  <img src="flask.png" width="800" alt="Set Preview with Default Settings">
 </p>
 
 
