@@ -2,7 +2,7 @@
 
 Machine Learning autocompletion
 
-###### Flask Site
+### Flask Site
 
 
 
@@ -11,7 +11,7 @@ Machine Learning autocompletion
 </p>
 
 
-###### Shell Useage
+### Shell
 
 <p align="left" style="border: 5px solid #555">
   <img src="example.png" width="200" alt="Set Preview with Default Settings">
