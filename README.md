@@ -65,7 +65,7 @@ Enter prefix: he
 
 Testing for this is somewhat straight forward. However, it is necessary to create a heuristic for testing. That being, the number $n$ of letters we use as a prefix to guess the rest of the word. For simplicity's sake, I've choosen this as a floor division by 2 (`//2`). I believe this works fine for this test. In the future, it would be nice to test this on all prefix lengths (perhaps except for 0-2 characters as this would simpily not provide enough information.)
 
-The first iteration of tests utilised 20% of the 'harryPotter.txt' corpus and achieved a $77.4$% accuracy. Additionally, the tests ran in 592 seconds for 100,975 words, giving the model a speed of `0.00586 seconds/word or 5.86 milliseconds/word` (Mac M1 2020 - with a few apps open.)
+The first iteration of tests utilised 20% of the 'harryPotter.txt' corpus and achieved a $43.6$% accuracy for word endings. Additionally, the tests ran in 592 seconds for 100,975 words, giving the model a speed of `0.00586 seconds/word or 5.86 milliseconds/word` (Mac M1 2020 - with a few apps open.)
 
 <p align="left" style="border: 5px solid #555">
   <img src="testCases.png" width="400" alt="Set Preview with Default Settings">
