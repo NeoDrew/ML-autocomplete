@@ -40,3 +40,6 @@ def getAutoCompletions(userInput):
         return predStr
     else:
          return ""
+
+if __name__ == "__main__":
+    app.run(debug="True")
