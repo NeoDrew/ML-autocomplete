@@ -4,14 +4,28 @@ from collections import Counter
 
 # Preprocessing Corpus
 class tokenizer:
-    def createDict(self, path="harryPotter.txt"):
+    def createDict(self, path="../data/harryPotter.txt"):
+        """
+        Converts a text corpus into a word frequency dictionary.
+
+        :param string path: Path to text corpus.
+        :return: Dictionary of lowercase words and their frequencies'
+        :rtype: Dict{String:Int}
+        """
         tokenPath = path
         tokenVector = self.getWords(path=tokenPath)
         dictionary = Counter(tokenVector)
         return dictionary
 
-    def getWords(self, path="harryPotter.txt"):
-        with open("../data/" + path, "r") as f:
+    def getWords(self, path):
+        """
+        Converts a text corpus into tokenized vector or words.
+
+        :param string path: Path to text corpus.
+        :return: Vector of lowercase words 
+        :rtype: List[String]
+        """
+        with open(path, "r") as f:
             tokenVector = []
             for line in f:
                 # Remove Punctuation & case fold

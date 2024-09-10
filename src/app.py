@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request
-import appC
+import autoComplete
 app = Flask(__name__)
 
-autoC = appC.autoComplete()
+autoC = autoComplete.autoComplete()
 
 @app.route("/", methods=['GET', 'POST'])
 def hello_world():
