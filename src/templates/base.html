@@ -76,6 +76,7 @@
 
     <script>
         function getTextOnChange() {
+            // Retrieves the user's input, sends post request to flask app, retrieves and updates predictions on webpage
             var userInputValue = document.getElementById('userInput').value;
 
             fetch('/get_text', {

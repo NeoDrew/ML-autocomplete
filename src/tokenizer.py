@@ -3,7 +3,7 @@ from collections import Counter
 
 
 # Preprocessing Corpus
-class tokenizer:
+class Tokenizer:
     def createDict(self, path="../data/harryPotter.txt"):
         """
         Converts a text corpus into a word frequency dictionary.
@@ -12,8 +12,7 @@ class tokenizer:
         :return: Dictionary of lowercase words and their frequencies'
         :rtype: Dict{String:Int}
         """
-        tokenPath = path
-        tokenVector = self.getWords(path=tokenPath)
+        tokenVector = self.getWords(path=path)
         dictionary = Counter(tokenVector)
         return dictionary
 
@@ -28,8 +27,8 @@ class tokenizer:
         with open(path, "r") as f:
             tokenVector = []
             for line in f:
-                # Remove Punctuation & case fold
-                noPunctLine = re.sub(r"[^\w\s]", "", line.lower())
+                # Remove unnesscesary punctuation & case fold
+                noPunctLine = re.sub(r"[^\w\s']", "", line.lower())
                 words = noPunctLine.strip().split()
                 # If word is nothing coninue
                 if not words:
@@ -52,5 +51,5 @@ class tokenizer:
 
 
 if __name__ == "__main__":
-    dictionary = tokenizer()
+    dictionary = Tokenizer()
     print((dictionary.createDict()))

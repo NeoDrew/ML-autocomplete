@@ -4,12 +4,9 @@ Machine Learning autocompletion
 
 ### Flask Site
 
-
-
 <p align="left" style="border: 5px solid #555">
   <img src="flask.png" width="840" alt="Set Preview with Default Settings">
 </p>
-
 
 ### Shell
 
@@ -17,16 +14,35 @@ Machine Learning autocompletion
   <img src="example.png" width="200" alt="Set Preview with Default Settings">
 </p>
 
-
-
 ### How to use
+
+##### Setup
 
 1. Clone into directory of choice
 2. Run the following commands
 
+##### Command Line
+
+
+##### Flask
+
 ```shell
 cd src
-flask --app flaskApp run
+python3 app.py --corpus "../data/harryPotter.txt"
+```
+
+##### Unittests
+
+```python
+cd tests
+python3 -m unittest  tokenizerTest.py
+```
+
+##### Performance Tests
+
+```python
+cd tests
+python3 tests/performanceTests.py --type "minusOne" --corpus "data/harryPotterTest.txt";
 ```
 
 
@@ -39,7 +55,7 @@ This can be easily done for prefixes that are close to the length of the word. E
 The probability of a given word being the word the user is trying to spell is given as the probability of the next $i$ to $n$ letters given the previous $0$ to $i-1$ letters.
 
 $$
-P(w) = P(l_{i:n}|l_{0:i-1})
+P(w) = P(l_{i:n}|l_{0:i-1}) = \frac{P(l_{0:i-1}|l_{i:n}) \cdot P(l_{i:n})}  {P(l_{0:i-1})}
 $$
 
 With this in mind, we can work out the probabilities of the next $x$ characters given a corpus of words where some word contains our prefix so far. E.g. we have the prefix $her$ and wish to complete it. Given our corpus contains
@@ -75,7 +91,7 @@ The first iteration of tests utilised 20% of the 'harryPotter.txt' corpus and ac
 
 The model is very limited by the size and the type of the corpus. The model can predict very well in test cases because it is from the same corpus. Perhaps it would be a good idea to cross-reference corpora.
 
-# Plan
+# Initial Plan
 
 ### Goal
 
