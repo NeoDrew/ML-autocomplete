@@ -13,7 +13,7 @@ class PerformanceTests:
     def __init__(self, path):
         self.autoComplete = AutoComplete.AutoComplete(path)
         self.tokenizer = Tokenizer.Tokenizer()
-
+        
         self.testWords = self.tokenizer.getWords(path)
         self.testLen = len(self.testWords)
         self.updateNum = int(self.testLen / 200)

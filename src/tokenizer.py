@@ -28,28 +28,36 @@ class Tokenizer:
             tokenVector = []
             for line in f:
                 # Remove unnesscesary punctuation & case fold
-                noPunctLine = re.sub(r"[^\w\s']", "", line.lower())
+                noPunctLine = re.sub(r"[^a-z\s']", "", line.lower())
                 words = noPunctLine.strip().split()
                 # If word is nothing coninue
-                if not words:
-                    continue
-                # Removal of special characters
-                if words[0][0] == "\x0c":
-                    words[0] = words[0][1:]
-                # If word is number, ignore
-                withoutNumbers = []
-                for word in words:
-                    try:
-                        if int(word):
-                            continue
-                    except:
-                        withoutNumbers.append(word)
-
-                tokenVector.extend(withoutNumbers)
+                if words:
+                    tokenVector.extend(words)
         
         return tokenVector
+    
+    def getSentences(self, path):
+        """
+        Converts a text corpus into tokenized vector or sentences.
+
+        :param string path: Path to text corpus.
+        :return: Vector of lowercase words 
+        :rtype: List[String]
+        """
+        with open(path, "r") as f:
+            sentences = f.read().split(".")
+            sentenceVector = []
+            for sentence in sentences:
+                # Remove unnesscesary punctuation & case fold
+                noPunctLine = re.sub(r"[^a-z\s']", "", sentence.lower())
+                words = noPunctLine.strip().split()
+                # If word is nothing coninue
+                if words:
+                    sentenceVector.append(words)
+                
+        return sentenceVector
 
 
 if __name__ == "__main__":
-    dictionary = Tokenizer()
-    print((dictionary.createDict()))
+    tokenizer = Tokenizer()
+    print(tokenizer.getWords("../data/harryPotterTest.txt"))

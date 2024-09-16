@@ -6,10 +6,10 @@ import os
 NUMBER_PREDICTED = 3
 
 
-class AutoComplete:
+class SentenceComplete:
     def __init__(self, path: str):
         """
-        Initialisation for AutoComplete. Describes necessary class dependencies.
+        Initialisation for SentenceComplete. Describes necessary class dependencies.
 
         :param string path: Path to text corpus.
         """
@@ -19,9 +19,9 @@ class AutoComplete:
 
     def getPredictions(self, prefix: str):
         """
-        Generates autocompletion predictions given prefix.
+        Generates predictions given sentence prefix.
 
-        :param string prefix: Prefix of word to be AutoCompleted.
+        :param string prefix: Prefix of sentence to be completed.
         :return: Top predictions in accordance to NUMBER_PREDICTED
         :rtype: List[String]
         """
@@ -48,7 +48,6 @@ class AutoComplete:
                 return topValues
         return topValues
 
-
 # Able to run on command line.
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run different test cases based on the type provided. Provide test corpus.")
@@ -63,7 +62,7 @@ if __name__ == "__main__":
     if not(os.path.isfile(args.corpus)):
         exit("Invalid directory")
 
-    autoComplete = AutoComplete(path=args.corpus)
+    autoComplete = SentenceComplete(path=args.corpus)
 
     print("Press ctrl + c to exit.")
     while True:
