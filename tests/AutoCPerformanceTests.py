@@ -3,16 +3,16 @@ testdir = os.path.dirname(__file__)
 srcdir = '../src'
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
 
-import AutoComplete
-import Tokenizer
+import autoComplete
+import tokenizer
 import time
 import argparse
 
 
 class PerformanceTests:
     def __init__(self, path):
-        self.autoComplete = AutoComplete.AutoComplete(path)
-        self.tokenizer = Tokenizer.Tokenizer()
+        self.autoComplete = autoComplete.AutoComplete(path)
+        self.tokenizer = tokenizer.Tokenizer()
         
         self.testWords = self.tokenizer.getWords(path)
         self.testLen = len(self.testWords)

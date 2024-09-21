@@ -13,7 +13,6 @@ class AutoComplete:
 
         :param string path: Path to text corpus.
         """
-        self.wordDictionary = {}
         tokenizer = Tokenizer.Tokenizer()
         self.wordDictionary = tokenizer.createDict(path=path)
 

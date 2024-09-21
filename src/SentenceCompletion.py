@@ -1,7 +1,8 @@
-import Tokenizer
-import re
+import tokenizer
+import numpy as np
 import argparse
 import os
+from sklearn.neural_network import MLPRegressor
 
 NUMBER_PREDICTED = 3
 
@@ -13,11 +14,19 @@ class SentenceComplete:
 
         :param string path: Path to text corpus.
         """
-        self.wordDictionary = {}
-        tokenizer = Tokenizer.Tokenizer()
-        self.wordDictionary = tokenizer.createDict(path=path)
+        self.tokenizer = tokenizer.Tokenizer()
+        self.setnences = self.tokenizer.getSentences(path=path)
+        self.pairs = self.tokenizer.getPairs(path=path)
+        self.wordIds = {word: idx for idx, word in enumerate(self.tokenizer.getWords(path=path))}
+        self.path = path
+    
+    def trainNN(self, showGraph=False):
+        firstWord = np.array([self.wordIds[pair[0]] for pair in self.pairs]).reshape(-1, 1)
+        secondWord = np.array([self.wordIds[pair[1]] for pair in self.pairs])
 
-    def getPredictions(self, prefix: str):
+        
+        
+    def getPredictions(self, sentencePrefix: str):
         """
         Generates predictions given sentence prefix.
 
@@ -25,28 +34,10 @@ class SentenceComplete:
         :return: Top predictions in accordance to NUMBER_PREDICTED
         :rtype: List[String]
         """
-        prefix = re.sub(r"[^a-z\s]", "", (prefix.lower()).strip())
-        words = self.wordDictionary.copy()
-        matches = {}
-
-        for word in words:
-            if len(word) <= len(prefix):
-                continue
-            if word[0 : len(prefix)] == prefix:
-                matches.update({word: words.get(word)})
-
-        matchList = matches.items()
-
-        sortedMatches = (sorted(matchList, key=lambda x: int(x[1])))[::-1]
-
-        topValues = []
-
-        for i in range(NUMBER_PREDICTED):
-            try:
-                topValues.append(sortedMatches[i][0])
-            except:
-                return topValues
-        return topValues
+        self.trainNN()
+        lastWord = self.tokenizer.getSentences(path=self.path, sentence=sentencePrefix)[-1]
+        return self.sentenceCompletionMLP.predict(lastWord)
+    
 
 # Able to run on command line.
 if __name__ == "__main__":
@@ -62,9 +53,11 @@ if __name__ == "__main__":
     if not(os.path.isfile(args.corpus)):
         exit("Invalid directory")
 
-    autoComplete = SentenceComplete(path=args.corpus)
+    
+    sentenceComplete = SentenceComplete(path=args.corpus)
+    print(sentenceComplete.wordIds)
 
     print("Press ctrl + c to exit.")
     while True:
-        word = input("Enter prefix: ")
-        print(autoComplete.getPredictions(word))
+        word = input("Enter sentence: ")
+        print(sentenceComplete.getPredictions(word))

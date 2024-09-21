@@ -4,13 +4,14 @@ srcdir = '../src'
 sys.path.insert(0, os.path.abspath(os.path.join(testdir, srcdir)))
 
 import unittest
-import Tokenizer 
+import tokenizer 
 
 class Test(unittest.TestCase):
     def setUp(self):
         unittest.TestCase()
-        self.tokenizer = Tokenizer.Tokenizer()
+        self.tokenizer = tokenizer.Tokenizer()
         self.words = self.tokenizer.getWords(path="../data/harryPotterTest.txt")
+        self.pairs = self.tokenizer.getPairs(path="../data/harryPotterTest.txt")
         self.tokens = self.tokenizer.createDict(path="../data/harryPotterTest.txt")
 
     def test_0_get_words_preprocessed(self):
@@ -37,8 +38,7 @@ class Test(unittest.TestCase):
         """
         - Test for correct word frequencies for known counts > 0
         """
-        # Using default Harry Potter corpus
-        self.assertEqual(self.tokens['the'], 4779)
+        self.assertEqual(self.tokens['the'], 4783)
         self.assertEqual(self.tokens['did'], 198)
         self.assertEqual(self.tokens['dumbledore'], 401)
         self.assertEqual(self.tokens["they're"], 45)
@@ -48,11 +48,31 @@ class Test(unittest.TestCase):
         """
         - Test for correct word frequencies for unknown words
         """
-        # Using default Harry Potter corpus
         self.assertEqual(self.tokens['mmmm'], 0)
         self.assertEqual(self.tokens['xylophone'], 0)
         self.assertEqual(self.tokens['soho'], 0)
         self.assertEqual(self.tokens["I'm"], 0)
+        self.assertEqual(self.tokens[""], 0)
+        self.assertEqual(self.tokens["'"], 0)
+        self.assertEqual(self.tokens["''"], 0)
+        self.assertEqual(self.tokens["'''"], 0)
+        self.assertEqual(self.tokens['"'], 0)
+        self.assertEqual(self.tokens['""'], 0)
+        self.assertEqual(self.tokens['"""'], 0)
 
+    def test_3_get_pairs_creates_pairs(self):
+        """
+        - Test for getPairs returns correct pairs
+        """
+        for pair in self.pairs:
+            self.assertEqual(len(pair), 2)
+            self.assertTrue(len(pair[0]) > 0)
+            self.assertTrue(len(pair[1]) > 0)
+        
+        self.assertTrue(["i've", 'got'])
+        self.assertTrue(['got', 'a'])
+        self.assertTrue(['of', 'the'])
+    
+        
 if __name__ == "__main__":
     unittest.main()
