@@ -75,8 +75,6 @@ class Tokenizer:
                     if cleanWords:
                         sentenceVector.append(cleanWords)
         else:
-            print(type(sentence))
-            print(sentence)
             sentences = sentence.split(".")
             sentenceVector = []
             for sentence in sentences:

@@ -26,7 +26,6 @@ class SentenceComplete:
         :rtype: List[String]
         """
         sentencePrefix = self.tokenizer.getSentences(sentence=sentencePrefix)
-        print(sentencePrefix)
         matches = self.wordFreqDict.get(sentencePrefix[-1][-1])
         
         if matches is None:

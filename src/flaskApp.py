@@ -39,8 +39,7 @@ def get_text():
         :rtype: String
     """
     userInput = request.form['userInput']
-    result = [getAutoCompletions(userInput),getSentenceCompletions(userInput)]
-    print(result)
+    result = [getAutoCompletions(userInput), getSentenceCompletions(userInput)]
     return result
 
 def getAutoCompletions(userInput):
@@ -87,13 +86,11 @@ def getSentenceCompletions(userInput):
     """
     if len(userInput) == 0:
         return ""
-    if str(userInput)[-1] == " ":
-         return ""
+    if userInput[-1] != ' ':
+        return ""
     
     # Get last word of user input and generate predictions
-    print(type(userInput))
-    lastWord = tokenizer.getSentences(sentence=userInput)
-
+    lastWord = tokenizer.getSentences(sentence=userInput)[-1][-1]
     predictions = sentenceComplete.getPredictions(lastWord)
     
     # Formatting for predictions
