@@ -1,4 +1,4 @@
-import Tokenizer
+import tokenizer
 import re
 import argparse
 import os
@@ -13,8 +13,8 @@ class AutoComplete:
 
         :param string path: Path to text corpus.
         """
-        tokenizer = Tokenizer.Tokenizer()
-        self.wordDictionary = tokenizer.createDict(path=path)
+        self.tokenizer = tokenizer.Tokenizer()
+        self.wordDictionary = self.tokenizer.createDict(path=path)
 
     def getPredictions(self, prefix: str):
         """
@@ -38,14 +38,14 @@ class AutoComplete:
 
         sortedMatches = (sorted(matchList, key=lambda x: int(x[1])))[::-1]
 
-        topValues = []
+        topMatches = []
 
         for i in range(NUMBER_PREDICTED):
             try:
-                topValues.append(sortedMatches[i][0])
+                topMatches.append(sortedMatches[i][0])
             except:
-                return topValues
-        return topValues
+                return topMatches
+        return topMatches
 
 
 # Able to run on command line.
@@ -53,12 +53,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run different test cases based on the type provided. Provide test corpus.")
     
     # Add --corpus argument
-    parser.add_argument('--corpus', type=str, required=False,
+    parser.add_argument('--corpus', type=str, required=True,
                         help="Specify the directory of test corpus to run.")
 
     args = parser.parse_args()
-    if args.corpus is None:
-        exit("Invalid directory")
     if not(os.path.isfile(args.corpus)):
         exit("Invalid directory")
 

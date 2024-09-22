@@ -68,7 +68,9 @@
     <label for="userInput">Enter something:</label>
     <input type="text" id="userInput" contenteditable="true" name="userInput" oninput="getTextOnChange()">
 
-    <p id="output"></p>
+    <p id="autoCompleteOutput"></p>
+
+    <p id="sentenceCompleteOutput"></p>
 
     <h1 id="powered">
         Powered by Harry Potter
@@ -88,7 +90,8 @@
             })
             .then(response => response.text())
             .then(result => {
-                document.getElementById('output').innerText = result;
+                document.getElementById('autoCompleteOutput').innerText = result[0];
+                document.getElementById('sentenceCompleteOutput').innerText = result[1];
             });
         }
     </script>

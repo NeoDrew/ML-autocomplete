@@ -23,12 +23,11 @@ Machine Learning autocompletion
 
 ##### Command Line
 
-
 ##### Flask
 
 ```shell
 cd src
-python3 app.py --corpus "../data/harryPotter.txt"
+python3 flaskApp.py --corpus "../data/harryPotter.txt"
 ```
 
 ##### Unittests
@@ -44,7 +43,6 @@ python3 -m unittest  tokenizerTest.py
 cd tests
 python3 tests/performanceTests.py --type "minusOne" --corpus "data/harryPotterTest.txt";
 ```
-
 
 ### Theory
 

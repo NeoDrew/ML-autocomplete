@@ -45,7 +45,7 @@ class Tokenizer:
         
         return tokenVector
     
-    def getSentences(self, path, sentence=None):
+    def getSentences(self, path=None, sentence=None):
         """
         Converts a text corpus or input into tokenized vector or sentences.
 
@@ -75,6 +75,8 @@ class Tokenizer:
                     if cleanWords:
                         sentenceVector.append(cleanWords)
         else:
+            print(type(sentence))
+            print(sentence)
             sentences = sentence.split(".")
             sentenceVector = []
             for sentence in sentences:
@@ -90,6 +92,7 @@ class Tokenizer:
         """
         Converts a vector of sentences into pairs of consequtive words. 
 
+        :param string path: Path to text corpus.
         :return: Vector of pairs of lowercase words 
         :rtype: List[List[String]]
         """
@@ -104,15 +107,23 @@ class Tokenizer:
         """
         Converts pairs of words from a setnece into a dictionary of words with the next words frequency.
 
+        :param string path: Path to text corpus.
+        :param List[List[String]] pairs: Adjacent pairs of words from a sentence.
         :return: Vector of pairs of lowercase words 
-        :rtype: List[List[String]]
+        :rtype: Dict{String: Dict{String: Int}}
         """
-        pairs = []
-        for sentence in self.getSentences(path=path):
-            for i in range(len(sentence)-1):
-                pairs.append([sentence[i], sentence[i+1]])
+        # {"the": {"next": 500, "second": 700, "following": 102}, "what": {"is": 900, "are": 832}, "obscure":{"people":1}}
+        nextWordDictionary = {}
+        for first, second in self.getPairs(path=path):
+            if nextWordDictionary.get(first) is not None:
+                if second in nextWordDictionary.get(first):
+                    nextWordDictionary[first][second] += 1
+                else:
+                    nextWordDictionary[first][second] = 1
+            else:
+                nextWordDictionary[first] = {second: 1}
         
-        return pairs
+        return nextWordDictionary
     
 if __name__ == "__main__":
     tokenizer = Tokenizer()

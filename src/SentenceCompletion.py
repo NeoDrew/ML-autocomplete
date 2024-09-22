@@ -1,8 +1,6 @@
 import tokenizer
-import numpy as np
 import argparse
 import os
-from sklearn.neural_network import MLPRegressor
 
 NUMBER_PREDICTED = 3
 
@@ -15,28 +13,36 @@ class SentenceComplete:
         :param string path: Path to text corpus.
         """
         self.tokenizer = tokenizer.Tokenizer()
-        self.setnences = self.tokenizer.getSentences(path=path)
-        self.pairs = self.tokenizer.getPairs(path=path)
-        self.wordIds = {word: idx for idx, word in enumerate(self.tokenizer.getWords(path=path))}
+        self.wordFreqDict = self.tokenizer.getNextWordFrequencies(path=path)
         self.path = path
     
-    def trainNN(self, showGraph=False):
-        firstWord = np.array([self.wordIds[pair[0]] for pair in self.pairs]).reshape(-1, 1)
-        secondWord = np.array([self.wordIds[pair[1]] for pair in self.pairs])
-
-        
-        
+    
     def getPredictions(self, sentencePrefix: str):
         """
         Generates predictions given sentence prefix.
 
         :param string prefix: Prefix of sentence to be completed.
-        :return: Top predictions in accordance to NUMBER_PREDICTED
+        :return: Top word predictions in accordance to NUMBER_PREDICTED
         :rtype: List[String]
         """
-        self.trainNN()
-        lastWord = self.tokenizer.getSentences(path=self.path, sentence=sentencePrefix)[-1]
-        return self.sentenceCompletionMLP.predict(lastWord)
+        sentencePrefix = self.tokenizer.getSentences(sentence=sentencePrefix)
+        print(sentencePrefix)
+        matches = self.wordFreqDict.get(sentencePrefix[-1][-1])
+        
+        if matches is None:
+            return []
+        matchList = matches.items()
+
+        sortedMatches = (sorted(matchList, key=lambda x: int(x[1])))[::-1]
+
+        topMatches = []
+
+        for i in range(NUMBER_PREDICTED):
+            try:
+                topMatches.append(sortedMatches[i][0])
+            except:
+                return topMatches
+        return topMatches
     
 
 # Able to run on command line.
@@ -55,7 +61,6 @@ if __name__ == "__main__":
 
     
     sentenceComplete = SentenceComplete(path=args.corpus)
-    print(sentenceComplete.wordIds)
 
     print("Press ctrl + c to exit.")
     while True:

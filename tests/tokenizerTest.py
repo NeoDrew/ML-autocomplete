@@ -13,6 +13,7 @@ class Test(unittest.TestCase):
         self.words = self.tokenizer.getWords(path="../data/harryPotterTest.txt")
         self.pairs = self.tokenizer.getPairs(path="../data/harryPotterTest.txt")
         self.tokens = self.tokenizer.createDict(path="../data/harryPotterTest.txt")
+        self.nextWordFrequencies = self.tokenizer.getNextWordFrequencies(path="../data/harryPotterTest.txt")
 
     def test_0_get_words_preprocessed(self):
         """
@@ -69,10 +70,20 @@ class Test(unittest.TestCase):
             self.assertTrue(len(pair[0]) > 0)
             self.assertTrue(len(pair[1]) > 0)
         
-        self.assertTrue(["i've", 'got'])
-        self.assertTrue(['got', 'a'])
-        self.assertTrue(['of', 'the'])
+        self.assertTrue(["i've", 'got'] in self.pairs)
+        self.assertTrue(['got', 'a'] in self.pairs)
+        self.assertTrue(['of', 'the'] in self.pairs)
     
+    def test_4_get_next_word_frequencies(self):
+        """
+        - Test for getPairs returns correct pairs
+        """
+        
+        self.assertTrue('devoted' in self.nextWordFrequencies)
+        self.assertTrue(self.nextWordFrequencies['devoted'] == {'houseelf': 1, 'servants': 1})
+        self.assertTrue(self.nextWordFrequencies['ridiculous'] == {'she': 1, 'rumors': 1})
+       
+    # Test for input sentence / words
         
 if __name__ == "__main__":
     unittest.main()
